@@ -1,5 +1,5 @@
 /* client.js
- *
+ * base client logic should go here
  *
  */
 var socket;

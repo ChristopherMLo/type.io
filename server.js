@@ -26,10 +26,12 @@ io.on('connection', function (socket) {
         game.setup(socket, thisUser, roomNumber);
     });
     socket.on("disconnect", function() {
+        game.exit(thisUser);
         console.log("User Disconnected");
     });
 });
 
+// Creates a user and stores it in users
 function createUser(){
     var number = 1;
     while(users.indexOf("user" + number.toString()) != -1){
