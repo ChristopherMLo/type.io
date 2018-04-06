@@ -13,27 +13,32 @@ var room1 = {
     name: 'room 1',
     word: "HelloWorld1",
     index: 0,
+    split: [],
 }
 var room2 = {
     users: [],
     name: 'room 2',
-
     word: "HelloWorld2",
     index: 0,
+    split: [],
 }
 var room3 = {
     users: [],
     name: 'room 3',
     word: "HelloWorld3",
     index: 0,
+    split: [],
 }
 var room4 = {
     users: [],
     name: 'room 4',
     word: "HelloWorld4",
     index: 0,
+    split: [],
 }
 var rooms = [room1, room2, room3, room4];
+var colors = ['red', 'blue', 'green', 'black'];
+
 var socket;
 module.exports = {
     setup: _setup,
@@ -59,13 +64,23 @@ function _setup(io, _sock, username, roomNumber) {
         _sock.on("letter typed", function(letter){
             if (letter == room.word[room.index]){
                 room.index += 1;
-                _sock.to(room.name).emit("word update", room.word, room.word.slice(0, room.index));
-                _sock.emit("word update", room.word, room.word.slice(0, room.index));
+                _sock.in(room.name).emit("word update", room.word, room.word.slice(0, room.index));
             }
         });
         console.log(username + " has entered room" + roomNumber);
     }
 
+}
+
+// clear the split array and split the word among players
+function splitWord(roomNumber) {
+    var room = rooms[roomNumber-1];
+    room.split = [];
+    for (i = 0; i < room.word.length; i++){
+        var identifier = Math.floor(Math.random() * room.users.length)
+        room.split.push(room.users[identifier]);
+        }
+    }
 }
 
 function _exit(username, roomNumber){
