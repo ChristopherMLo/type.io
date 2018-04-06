@@ -19,14 +19,15 @@ app.get('/', function(req, res){
 app.use(express.static(path.join(__dirname, "public")));
 
 io.on('connection', function (socket) {
-    thisUser = createUser();
+    var thisUser = createUser();
+    var room = 0;
     console.log(thisUser + " Connected");
     socket.on("enter room", function(roomNumber){
-        console.log(roomNumber);
-        game.setup(socket, thisUser, roomNumber);
+        room = roomNumber;
+        game.setup(io, socket, thisUser, roomNumber);
     });
     socket.on("disconnect", function() {
-        game.exit(thisUser);
+        game.exit(thisUser, room);
         console.log("User Disconnected");
     });
 });
