@@ -79,7 +79,6 @@ function splitWord(roomNumber) {
     for (i = 0; i < room.word.length; i++){
         var identifier = Math.floor(Math.random() * room.users.length)
         room.split.push(room.users[identifier]);
-        }
     }
 }
 
