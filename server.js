@@ -2,6 +2,7 @@
  * base server logic should go here
  *
  */
+
 var game = require('./game');
 let express = require("express");
 var app = express();
@@ -11,7 +12,7 @@ var port = process.env.PORT || 3000;
 var path = require('path');
 
 
-var users = []; // list of users (string)
+var users = []; // list of users (string) (currently unused)
 
 app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -27,7 +28,7 @@ io.on('connection', function (socket) {
         game.setup(io, socket, thisUser, roomNumber);
     });
     socket.on("disconnect", function() {
-        game.exit(thisUser, room);
+        game.exit(socket, thisUser, room);
         console.log("User Disconnected");
     });
 });

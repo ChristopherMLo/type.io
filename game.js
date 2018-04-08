@@ -37,9 +37,7 @@ var room4 = {
     split: [],
 }
 var rooms = [room1, room2, room3, room4];
-var colors = ['red', 'blue', 'green', 'black'];
 
-var socket;
 module.exports = {
     setup: _setup,
     exit: _exit,
@@ -50,21 +48,31 @@ module.exports = {
 function _setup(io, _sock, username, roomNumber) {
 
     // set the room
-    var room = rooms[roomNumber-1];
-    if (room.users.length >= 4){
+    if (rooms[roomNumber-1].users.length >= 4){
         console.log("Too Many Users");
     }
     else {
         // Setup the user and socket in the room
-        room.users.push(username);
-        _sock.join(room.name);
-        _sock.emit("word update", room.word, "");
+        rooms[roomNumber-1].users.push(username);
+        _sock.join(rooms[roomNumber-1].name);
+        _sock.emit("player setup", username);
+        _sock.emit('player entered', rooms[roomNumber-1].users); // TODO: Idk why socket.in doesnt send to the sender... had to this line in several places. kinda bandaid fix
+        _sock.in(rooms[roomNumber-1].name).emit('player entered', rooms[roomNumber-1].users);
+
+        // Start game button (or some other event) is clicked
+        // split the word and send the final users
+        _sock.on("start game", function(){
+            splitWord(roomNumber);
+            _sock.emit('start game', rooms[roomNumber-1]);
+            _sock.in(rooms[roomNumber-1].name).emit('start game', rooms[roomNumber-1]);
+        });
 
         // Whenever a letter is typed from a client, then update the progress for clients
-        _sock.on("letter typed", function(letter){
-            if (letter == room.word[room.index]){
-                room.index += 1;
-                _sock.in(room.name).emit("word update", room.word, room.word.slice(0, room.index));
+        _sock.on("letter typed", function(letter, _username){
+            if (letter == rooms[roomNumber-1].word[rooms[roomNumber-1].index]){
+                rooms[roomNumber-1].index += 1;
+                _sock.emit("word update", rooms[roomNumber-1]);
+                _sock.in(rooms[roomNumber-1].name).emit("word update", rooms[roomNumber-1]);
             }
         });
         console.log(username + " has entered room" + roomNumber);
@@ -73,22 +81,24 @@ function _setup(io, _sock, username, roomNumber) {
 }
 
 // clear the split array and split the word among players
+// room.split[] will contain ["user1", "user2", "user2", "user4", ...]
+// which corrolates to user1 types first letter, user2 types next two, then user4 types the next etc.
 function splitWord(roomNumber) {
-    var room = rooms[roomNumber-1];
-    room.split = [];
-    for (i = 0; i < room.word.length; i++){
-        var identifier = Math.floor(Math.random() * room.users.length)
-        room.split.push(room.users[identifier]);
+    rooms[roomNumber-1].split = [];
+    for (i = 0; i < rooms[roomNumber-1].word.length; i++){
+        var identifier = Math.floor(Math.random() * rooms[roomNumber-1].users.length)
+        rooms[roomNumber-1].split.push(rooms[roomNumber-1].users[identifier]);
     }
 }
 
-function _exit(username, roomNumber){
+function _exit(_sock, username, roomNumber){
     if (roomNumber > 0){
-        var room = rooms[roomNumber-1];
-        var index = room.users.indexOf(username);
+        var index = rooms[roomNumber-1].users.indexOf(username);
         if (index > -1) {
-          room.users.splice(index, 1);
+          rooms[roomNumber-1].users.splice(index, 1);
         }
+        _sock.in(rooms[roomNumber-1].name).emit('player exited', rooms[roomNumber-1].users);
     }
+
     console.log(username + " has exited room" + roomNumber);
 }

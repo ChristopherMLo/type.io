@@ -2,15 +2,25 @@
 <html>
     <head>
         <title>room 1</title>
-        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="../css/index.css" />
         <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="../js/game.js"></script>
     </head>
     <body>
         Room #<div id="roomNumber">1</div>
-        Your Word: <div id="goal"></div>
-        Typed: <div id="typed"></div>
-        <input id="input" type="text" size="40" onkeyup="letterTyped(event)">
+        <button onclick="startGame()">Start Game with these players</button>
+        <div id="player"></div>
+        <div id="players"></div>
+
+        <div id="gameWindow">
+            <div id="player1"></div>
+            <div id="player2"></div>
+            <div id="player3"></div>
+            <div id="player4"></div>
+            Your Word: <div id="goal"></div>
+            Typed: <div id="typed"></div>
+            <input id="input" type="text" size="40" onkeyup="letterTyped(event)">
+        </div>
     </body>
 </html>
