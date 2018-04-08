@@ -1,27 +1,113 @@
-body {
-  font: 14px Helvetica, Arial;
-  }
+/* Sorry, css file a little messy.. tbh not sure how to clean it up.
+ *
+ */
 
-#gameWindow {
+html
+{
+    height: 100%;
+    width: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+  font: 14px Helvetica, Arial;
+  height: 100%;
+  width: 100%;
+}
+
+#header
+{
+    height: 40px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width:100%;
+}
+
+#body
+{
+    height: calc(100% - 40px );
+    width: 100%;
+}
+
+#gameWrapper
+{
+    float: left;
+    width: 70%;
+    height: 100%;
+    background-color: lightgrey;
+}
+
+
+/* GAME STUFF */
+#preGameWindow
+{
+    padding: 10px;
+}
+
+#gameWindow
+{
+    padding: 10px;
+    background-color: grey;
+    height: 100%;
+    width: 100%;
     display: none;
 }
 
-.players{
+
+.players
+{
     overflow: hidden;
 }
 
-.players div{
+.players div
+{
     float: left;
     padding: 2px;
 }
 
-#goal ul li{
+#goal ul li
+{
     font-size: 20;
     float: left;
     padding: 2px;
 }
 
-#goal ul{
+#goal ul
+{
     list-style-type: none;
     padding: 2px;
+}
+
+
+
+/* CHAT STUFF */
+#chatWrapper
+{
+    position: relative;
+    padding: 10px;
+    float: left;
+    height: 100%;
+    width: 30%;
+    border-color: black;
+}
+
+#chatBody
+{
+    width: 100%;
+}
+
+#chatInput
+{
+    position: absolute;
+    height: 30px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
 }

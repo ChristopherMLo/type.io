@@ -8,25 +8,39 @@
         <script src="../js/game.js"></script>
     </head>
     <body>
-        Room #<span id="roomNumber">1</span>
-        <button onclick="startGame()">Start Game with these players</button>
-        <div id="player"></div>
-        <div id="players"></div>
 
-        <div id="gameWindow">
-            <div class="players">
-                <div id="player1"></div>
-                <div id="player2"></div>
-                <div id="player3"></div>
-                <div id="player4"></div>
+        <div id="header">
+            Room #<span id="roomNumber">1</span>
+            Hello, <span id="player">Guest</span>
+        </div>
+        <div id="body">
+            <div id="gameWrapper">
+                <div id="preGameWindow">
+                    <div id="players"></div>
+                    <div id="spectators"></div>
+                    <button onclick="startGame()">Start Game with these players</button>
+                </div>
+
+                <div id="gameWindow">
+                    <div id="goal">
+                        <ul>
+                        </ul>
+                    </div>
+                    <div id="typed"><br></div>
+                    <input id="input" type="text" size=1 onkeyup="keyTyped(event)">
+                    <div id="message"><br></div>
+                    <div class="players">
+                        <div id="player1"></div>
+                        <div id="player2"></div>
+                        <div id="player3"></div>
+                        <div id="player4"></div>
+                    </div>
+                </div>
             </div>
-            <div id="goal">
-                <ul>
-                </ul>
+            <div id="chatWrapper">
+                <div id="chatBody">Chat stuff here</div>
+                <input id="chatInput">
             </div>
-            <div id="typed"><br></div>
-            <input id="input" type="text" size="5" onkeyup="keyTyped(event)">
-            <div id="message"><br></div>
         </div>
     </body>
 </html>

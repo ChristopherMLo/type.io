@@ -60,6 +60,7 @@ function init()
         $('#typed').html("<br>");
         resetWord();
         setupWord(_room.word, _room.split);
+        $('#preGameWindow').hide();
         $('#gameWindow').show();
     });
 
@@ -118,8 +119,8 @@ function keyTyped(event)
         keycode == 32                    || // spacebar
         (keycode > 64 && keycode < 91)   || // letter keys
         (keycode > 95 && keycode < 112)  || // numpad keys
-        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-        (keycode > 218 && keycode < 223))   // [\]' (in order)
+        (keycode > 185 && keycode < 193) || // ;=,-./`
+        (keycode > 218 && keycode < 223))   // [\]'
     {
         socket.emit("key typed", event.key, usernameIndex);
     }
