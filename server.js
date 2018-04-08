@@ -14,29 +14,36 @@ var path = require('path');
 
 var users = []; // list of users (string) (currently unused)
 
-app.get('/', function(req, res){
+app.get('/', function(req, res)
+{
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
 app.use(express.static(path.join(__dirname, "public")));
 
-io.on('connection', function (socket) {
+io.on('connection', function (socket)
+{
     var thisUser = createUser();
     var room = 0;
     console.log(thisUser + " Connected");
-    socket.on("enter room", function(roomNumber){
+    socket.on("enter room", function(roomNumber)
+    {
         room = roomNumber;
         game.setup(io, socket, thisUser, roomNumber);
     });
-    socket.on("disconnect", function() {
+    socket.on("disconnect", function()
+    {
         game.exit(socket, thisUser, room);
         console.log("User Disconnected");
     });
 });
 
 // Creates a user and stores it in users
-function createUser(){
+function createUser()
+{
     var number = 1;
-    while(users.indexOf("user" + number.toString()) != -1){
+    while(users.indexOf("user" + number.toString()) != -1)
+    {
         number++;
     }
     var newUser = "user" + number.toString();
@@ -44,6 +51,7 @@ function createUser(){
     return newUser;
 }
 
-server.listen(port, function () {
+server.listen(port, function ()
+{
     console.log('listening on *:' + port);
 });

@@ -8,23 +8,25 @@
         <script src="../js/game.js"></script>
     </head>
     <body>
-        Theres probably a better way to do than than one html file for each room - Scott<br>
-        Room #<div id="roomNumber">1</div>
+        Room #<span id="roomNumber">1</span>
         <button onclick="startGame()">Start Game with these players</button>
         <div id="player"></div>
         <div id="players"></div>
 
         <div id="gameWindow">
-            <div id="player1"></div>
-            <div id="player2"></div>
-            <div id="player3"></div>
-            <div id="player4"></div>
+            <div class="players">
+                <div id="player1"></div>
+                <div id="player2"></div>
+                <div id="player3"></div>
+                <div id="player4"></div>
+            </div>
             <div id="goal">
                 <ul>
                 </ul>
             </div>
-            Typed: <div id="typed"></div>
-            <input id="input" type="text" size="40" onkeyup="letterTyped(event)">
+            <div id="typed"><br></div>
+            <input id="input" type="text" size="5" onkeyup="keyTyped(event)">
+            <div id="message"><br></div>
         </div>
     </body>
 </html>
