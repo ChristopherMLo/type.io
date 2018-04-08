@@ -71,11 +71,13 @@ function _setup(io, _sock, username, roomNumber) {
         });
 
         // Whenever a letter is typed from a client, then update the progress for clients
-        _sock.on("letter typed", function(letter, _username){
-            if (letter == rooms[roomNumber-1].word[rooms[roomNumber-1].index]){
-                rooms[roomNumber-1].index += 1;
-                _sock.emit("word update", rooms[roomNumber-1]);
-                _sock.in(rooms[roomNumber-1].name).emit("word update", rooms[roomNumber-1]);
+        _sock.on("letter typed", function(letter, _index){
+            if (_index == rooms[roomNumber-1].split[rooms[roomNumber-1].index]){
+                if (letter == rooms[roomNumber-1].word[rooms[roomNumber-1].index]){
+                    rooms[roomNumber-1].index += 1;
+                    _sock.emit("word update", rooms[roomNumber-1]);
+                    _sock.in(rooms[roomNumber-1].name).emit("word update", rooms[roomNumber-1]);
+                }
             }
         });
 
@@ -85,14 +87,15 @@ function _setup(io, _sock, username, roomNumber) {
 }
 
 // clear the split array and split the word among players
-// room.split[] will contain ["0", "2", "2", "3", ...]
-// which corrolates to users[1] types first letter, users[2] types next two, then users[4] types the next etc.
+// room.split[] will contain [0, 2, 2, 3, ...]
+// which corrolates to users[0] types first letter, users[2] types next two, then users[4] types the next etc.
 function splitWord(roomNumber) {
-    rooms[roomNumber-1].split = [];
+    rooms[roomNumber-1].split = []
     for (i = 0; i < rooms[roomNumber-1].word.length; i++){
         let identifier = Math.floor(Math.random() * rooms[roomNumber-1].users.length)
         rooms[roomNumber-1].split.push(identifier);
     }
+    console.log(rooms[roomNumber-1].split.toString());
 }
 
 function _exit(_sock, username, roomNumber){

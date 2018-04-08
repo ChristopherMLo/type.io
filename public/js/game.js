@@ -2,8 +2,11 @@
  * client side game logic should be here
  *
  */
+
+// Dont modify any _room variables, do that in the game.js file for the server
 var socket;
 var username;
+var usernameIndex;
 var colors = ['red', 'blue', 'green', 'black'];
 
 $(document).ready(init);
@@ -12,7 +15,6 @@ function init() {
 
     // Update words whenever progress is made
     socket.on('word update', function(_room){
-        $('#goal').html(_room.word);
         $('#typed').html(_room.word.slice(0, _room.index));
     });
 
@@ -39,6 +41,7 @@ function init() {
     // When server tells clients the game is starting. Unhide game div and other Setup
     // TODO: countdown timer
     socket.on('start game', function(_room){
+        usernameIndex = _room.users.indexOf(username);
         $('#player1').html(_room.users[0]);
         $('#player2').html(_room.users[1]);
         $('#player3').html(_room.users[2]);
@@ -47,7 +50,8 @@ function init() {
         $('#player2').css('color', colors[1]);
         $('#player3').css('color', colors[2]);
         $('#player4').css('color', colors[3]);
-        $('#goal').html(_room.word);
+        resetWord();
+        setupWord(_room.word, _room.split);
         $('#gameWindow').show();
     });
 
@@ -56,9 +60,21 @@ function init() {
 
 }
 
+// Setup the UI with the word in different colors
+function setupWord(word, split){
+    for (i = 0; i < word.length; i++){
+        $('#goal ul').append("<li>" + word[i] + "</li>");
+        $('#goal ul li:nth-child(' + (i+1) + ')').css('color', colors[split[i]]);
+    }
+}
+
+function resetWord(){
+    $('#goal ul').empty();
+}
+
 // On Key Up in html we emit the letter typed.
 function letterTyped(event){
-    socket.emit("letter typed", event.key, username);
+    socket.emit("letter typed", event.key, usernameIndex);
 }
 
 function startGame(){
