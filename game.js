@@ -8,6 +8,7 @@
 // name = rooms name, used to broadcast to rooms
 // word = word to typed
 // index = current index of word progress
+// split = assigned letter to word, ex[1, 2, 4, 3, 2, 1, 1], see splitWord()
 var room1 = {
     users: [],
     name: 'room 1',
@@ -38,6 +39,7 @@ var room4 = {
 }
 var rooms = [room1, room2, room3, room4];
 
+// Anytime you add a function make sure to update this
 module.exports = {
     setup: _setup,
     exit: _exit,
@@ -48,6 +50,7 @@ module.exports = {
 function _setup(io, _sock, username, roomNumber) {
 
     // set the room
+    // TODO: Might be a more elegant solution than using rooms[roomNumber-1]... but it works
     if (rooms[roomNumber-1].users.length >= 4){
         console.log("Too Many Users");
     }
@@ -75,25 +78,26 @@ function _setup(io, _sock, username, roomNumber) {
                 _sock.in(rooms[roomNumber-1].name).emit("word update", rooms[roomNumber-1]);
             }
         });
+
         console.log(username + " has entered room" + roomNumber);
     }
 
 }
 
 // clear the split array and split the word among players
-// room.split[] will contain ["user1", "user2", "user2", "user4", ...]
-// which corrolates to user1 types first letter, user2 types next two, then user4 types the next etc.
+// room.split[] will contain ["0", "2", "2", "3", ...]
+// which corrolates to users[1] types first letter, users[2] types next two, then users[4] types the next etc.
 function splitWord(roomNumber) {
     rooms[roomNumber-1].split = [];
     for (i = 0; i < rooms[roomNumber-1].word.length; i++){
-        var identifier = Math.floor(Math.random() * rooms[roomNumber-1].users.length)
-        rooms[roomNumber-1].split.push(rooms[roomNumber-1].users[identifier]);
+        let identifier = Math.floor(Math.random() * rooms[roomNumber-1].users.length)
+        rooms[roomNumber-1].split.push(identifier);
     }
 }
 
 function _exit(_sock, username, roomNumber){
     if (roomNumber > 0){
-        var index = rooms[roomNumber-1].users.indexOf(username);
+        let index = rooms[roomNumber-1].users.indexOf(username);
         if (index > -1) {
           rooms[roomNumber-1].users.splice(index, 1);
         }

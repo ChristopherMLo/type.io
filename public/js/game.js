@@ -18,14 +18,14 @@ function init() {
 
     // Whenever a player enters the room
     socket.on('player entered', function(_players){
-        var str = _players;
+        let str = _players;
         str = str.toString();
         $('#players').html(str);
     });
 
     // Whenver a player exits the room
     socket.on('player exited', function(_players){
-        var str = _players;
+        let str = _players;
         str = str.toString();
         $('#players').html(str);
     });
