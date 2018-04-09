@@ -58,6 +58,7 @@ body
     height: 100%;
     width: 100%;
     display: none;
+    float: left;
 }
 
 
@@ -72,20 +73,18 @@ body
     padding: 2px;
 }
 
-#goal ul li
+#goal li
 {
     font-size: 20;
     float: left;
     padding: 2px;
 }
 
-#goal ul
+#goal
 {
     list-style-type: none;
     padding: 2px;
 }
-
-
 
 /* CHAT STUFF */
 #chatWrapper

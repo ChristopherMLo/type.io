@@ -99,15 +99,15 @@ function setupWord(word, split)
 {
     for (i = 0; i < word.length; i++)
     {
-        $('#goal ul').append("<li>" + word[i] + "</li>");
-        $('#goal ul li:nth-child(' + (i+1) + ')').css('color', colors[split[i]]);
+        $('#goal').append("<li>" + word[i] + "</li>");
+        $('#goal li:nth-child(' + (i+1) + ')').css('color', colors[split[i]]);
     }
 }
 
 // Reset the word
 function resetWord()
 {
-    $('#goal ul').empty();
+    $('#goal').empty();
 }
 
 // On Key Up in html we emit the key typed.
