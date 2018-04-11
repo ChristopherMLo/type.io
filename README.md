@@ -17,3 +17,6 @@ use wrappers to wrap a row and set the wrapper to float:none.
 Set the child elements float:left to make columns for the row
 
 For the game room I dont want to to open another window, so in the gameWrapper just hide whatever screen is not in use and show the one you want to see. (same idea for the main menu screen)
+
+
+Hosted at: https://type-io.herokuapp.com/
