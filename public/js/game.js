@@ -47,6 +47,7 @@ function init()
     // TODO: countdown timer
     socket.on('start game', function(_room)
     {
+
         usernameIndex = _room.users.indexOf(username);
         $('#player1').html(_room.users[0]);
         $('#player2').html(_room.users[1]);
@@ -78,6 +79,13 @@ function init()
         document.getElementById("message").innerHTML = "Incorrect Key!";
         document.getElementById("input").disabled = true;
         setTimeout(disableTyping, 3000);
+    });
+
+    socket.on('game over', function(_room)
+    {
+       document.getElementById("message").innerHTML = "Game over!<br>Total time used: " + _room.timer + " seconds<br>Average letters per second: "+(_room.index)/_room.timer;
+       document.getElementById("input").disabled = true;
+       console.log("hi");
     });
 
     // Enter the room as the last thing

@@ -15,6 +15,7 @@ var room1 = {
     word: "HelloWorld1",
     index: 0,
     split: [],
+    timer: 0
 }
 var room2 = {
     users: [],
@@ -22,6 +23,7 @@ var room2 = {
     word: "HelloWorld2",
     index: 0,
     split: [],
+        timer: 0
 }
 var room3 = {
     users: [],
@@ -29,6 +31,7 @@ var room3 = {
     word: "HelloWorld3",
     index: 0,
     split: [],
+        timer: 0
 }
 var room4 = {
     users: [],
@@ -36,6 +39,7 @@ var room4 = {
     word: "HelloWorld4",
     index: 0,
     split: [],
+        timer: 0
 }
 var rooms = [room1, room2, room3, room4];
 
@@ -48,7 +52,7 @@ module.exports = {
 // Called whenever a socket enters the room. Currently the socket that starts on
 // index.html is not the same socket
 function _setup(io, _sock, username, roomNumber) {
-
+     var cancelInterval;
     // set the room
     // TODO: Might be a more elegant solution than using rooms[roomNumber-1]... but it works
     if (rooms[roomNumber-1].users.length >= 4){
@@ -70,6 +74,13 @@ function _setup(io, _sock, username, roomNumber) {
             rooms[roomNumber-1].index = 0;
             _sock.emit('start game', rooms[roomNumber-1]);
             _sock.in(rooms[roomNumber-1].name).emit('start game', rooms[roomNumber-1]);
+
+            // records seconds since game started
+            cancelInterval = setInterval(function(){
+                 rooms[roomNumber-1].timer++;
+                 console.log('time used: ', rooms[roomNumber-1].timer);
+            }
+            , 1000);
         });
 
         // Whenever a key is typed from a client, then update the progress for clients
@@ -79,15 +90,17 @@ function _setup(io, _sock, username, roomNumber) {
             if (_index == rooms[roomNumber-1].split[rooms[roomNumber-1].index])
             {
                 // Check if the right key was pressed
-                if (key == rooms[roomNumber-1].word[rooms[roomNumber-1].index])
+                if (key.toLowerCase() == rooms[roomNumber-1].word[rooms[roomNumber-1].index].toLowerCase())
                 {
                     rooms[roomNumber-1].index += 1;
                     _sock.emit("word update", rooms[roomNumber-1]);
                     _sock.in(rooms[roomNumber-1].name).emit("word update", rooms[roomNumber-1]);
                     if (rooms[roomNumber-1].index >= rooms[roomNumber-1].word.length)
                     {
-                        _sock.emit("game over");
-                        _sock.in(rooms[roomNumber-1].name).emit("game over");
+                         clearInterval(cancelInterval);
+                         _sock.emit("game over", rooms[roomNumber-1]);
+                         rooms[roomNumber-1].timer = 0;
+                         _sock.in(rooms[roomNumber-1].name).emit("game over");
                     }
                     console.log("Correct key : " + key)
 
@@ -109,6 +122,10 @@ function _setup(io, _sock, username, roomNumber) {
     }
 
 }
+//
+// function timer(roomNumber) {
+//     rooms[roomNumber-1].timer ++;
+// }
 
 // clear the split array and split the word among players
 // room.split[] will contain [0, 2, 2, 3, ...]
