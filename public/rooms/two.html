@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <title>room 2</title>
+        <link rel="stylesheet" href="../css/index.css" />
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="../js/game.js"></script>
+    </head>
+    <body>
+
+        <div id="header">
+            Room #<span id="roomNumber">2</span>
+            Hello, <span id="player">Guest</span>
+        </div>
+        <div id="body">
+            <div id="gameWrapper">
+                <div id="preGameWindow">
+                    <div id="players"></div>
+                    <div id="spectators">HELLO</div>
+                    <button onclick="startGame()">Start Game with these players</button>
+                </div>
+
+                <div id="gameWindow">
+                    <ul id="goal">
+                    </ul>
+
+                    <!-- IDK why I need this div tag but if i dont the layout get
+                     messed up because it thinks the div tag is still part of <ul>
+                     or something... trying to refactor so its not just a sea of
+                     <div> tags TODO -->
+                    <div><br>?</div>
+                    <div id="typed"><br></div>
+                    <div>
+                        <input id="input" type="text" size=1 onkeyup="keyTyped(event)">
+                    </div>
+                    <div id="message"><br></div>
+                    <div class="players">
+                        <div id="player1"></div>
+                        <div id="player2"></div>
+                        <div id="player3"></div>
+                        <div id="player4"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="chatWrapper">
+                <div id="chatBody">Chat stuff here</div>
+                <input id="chatInput">
+            </div>
+        </div>
+    </body>
+</html>
