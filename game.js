@@ -59,7 +59,7 @@ function _setup(io, _sock, username, roomNumber) {
         rooms[roomNumber-1].users.push(username);
         _sock.join(rooms[roomNumber-1].name);
         _sock.emit("player setup", username);
-        _sock.emit('player entered', rooms[roomNumber-1].users); // TODO: Idk why socket.in doesnt send to the sender... had to put this line in several places. kinda bandaid fix
+        _sock.emit('player entered', rooms[roomNumber-1].users); // TODO: Idk why socket.in(room) doesnt send to the sender... had to put this line in several places. kinda bandaid fix
         _sock.in(rooms[roomNumber-1].name).emit('player entered', rooms[roomNumber-1].users);
 
         // Start game button (or some other event) is clicked
