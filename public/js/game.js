@@ -17,6 +17,8 @@ function init()
     // Update words whenever progress is made
     socket.on('word update', function(_room)
     {
+        $('#goal li:nth-child(' + (_room.index) + ')').css('text-decoration', 'none');
+        $('#goal li:nth-child(' + (_room.index+1) + ')').css('text-decoration', 'underline');
         document.getElementById('typed').innerHTML = _room.word.slice(0, _room.index);
     });
 
@@ -107,9 +109,13 @@ function setupWord(word, split)
 {
     for (i = 0; i < word.length; i++)
     {
-        $('#goal').append("<li>" + word[i] + "</li>");
-        $('#goal li:nth-child(' + (i+1) + ')').css('color', colors[split[i]]);
+        if (word[i] == " ")
+            $('#goal').append("<li>&nbsp&nbsp</li>");
+        else
+            $('#goal').append("<li>" + word[i] + "</li>");
+        $('#goal li:nth-child(' + (i+1) + ')').css('background-color', colors[split[i]]);
     }
+    $('#goal li:nth-child(' + (1) + ')').css('text-decoration', 'underline');
 }
 
 // Reset the word

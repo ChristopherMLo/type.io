@@ -76,14 +76,18 @@ body
     font-family: impact;
     float: left;
     padding: 2px;
+    margin: 1.5px;
+    width: 18px;
+    border-color: white;
+    border-radius: 2px;
 }
 
 #goal
 {
     list-style-type: none;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
-    background-color: #262626;
+    background-color: #404040;
 }
 
 .playerbox

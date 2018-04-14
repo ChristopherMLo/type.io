@@ -13,6 +13,7 @@ var room1 = {
     users: [],
     name: 'room 1',
     word: "EASY TEST",
+    nospace: "",
     index: 0,
     split: [],
     timer: 0
@@ -21,6 +22,7 @@ var room2 = {
     users: [],
     name: 'room 2',
     word: "AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA",
+    nospace: "",
     index: 0,
     split: [],
         timer: 0
@@ -133,7 +135,9 @@ function _setup(io, _sock, username, roomNumber) {
 function splitWord(roomNumber)
 {
     rooms[roomNumber-1].split = []
-    for (i = 0; i < rooms[roomNumber-1].word.length; i++){
+    for (i = 0; i < rooms[roomNumber-1].word.length; i++)
+    {
+
         let identifier = Math.floor(Math.random() * rooms[roomNumber-1].users.length)
         rooms[roomNumber-1].split.push(identifier);
     }
