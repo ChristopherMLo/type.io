@@ -21,6 +21,15 @@ body
   width: 100%;
 }
 
+.panel
+{
+    min-height:25px;
+}
+.bottom-spacer
+{
+    display: inline-flex;
+    height: 100%;
+}
 #header
 {
     height: 40px;
@@ -61,21 +70,10 @@ body
     float: left;
 }
 
-
-.players
-{
-    overflow: hidden;
-}
-
-.players div
-{
-    float: left;
-    padding: 2px;
-}
-
 #goal li
 {
-    font-size: 20;
+    font-size: 20px;
+    font-family: impact;
     float: left;
     padding: 2px;
 }
@@ -83,7 +81,20 @@ body
 #goal
 {
     list-style-type: none;
-    padding: 2px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #262626;
+}
+
+.playerbox
+{
+    border-radius: 10px;
+    background-color: white;
+    margin:10px;
+    padding:10px;
+    font-family: 'Aclonica';
+    font-size: 22px;
+
 }
 
 /* CHAT STUFF */

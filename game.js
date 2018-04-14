@@ -12,28 +12,28 @@
 var room1 = {
     users: [],
     name: 'room 1',
-    word: "HelloWorld1",
+    word: "EASY TEST",
     index: 0,
     split: [],
 }
 var room2 = {
     users: [],
     name: 'room 2',
-    word: "HelloWorld2",
+    word: "AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA",
     index: 0,
     split: [],
 }
 var room3 = {
     users: [],
     name: 'room 3',
-    word: "HelloWorld3",
+    word: "hElLoWoRlD",
     index: 0,
     split: [],
 }
 var room4 = {
     users: [],
     name: 'room 4',
-    word: "HelloWorld4",
+    word: "1234567890",
     index: 0,
     split: [],
 }

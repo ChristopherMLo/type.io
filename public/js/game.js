@@ -7,7 +7,7 @@
 var socket;
 var username;
 var usernameIndex;
-var colors = ['red', 'blue', 'green', 'black'];
+var colors = ['red', 'cyan', 'green', 'orange'];
 
 $(document).ready(init);
 function init()
@@ -52,10 +52,10 @@ function init()
         $('#player2').html(_room.users[1]);
         $('#player3').html(_room.users[2]);
         $('#player4').html(_room.users[3]);
-        $('#player1').css('color', colors[0]);
-        $('#player2').css('color', colors[1]);
-        $('#player3').css('color', colors[2]);
-        $('#player4').css('color', colors[3]);
+        $('#player1').css('background-color', colors[0]);
+        $('#player2').css('background-color', colors[1]);
+        $('#player3').css('background-color', colors[2]);
+        $('#player4').css('background-color', colors[3]);
         $('#message').html("<br>");
         $('#typed').html("<br>");
         resetWord();
