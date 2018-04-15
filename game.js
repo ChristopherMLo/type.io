@@ -69,7 +69,7 @@ function _setup(io, _sock, username, roomNumber) {
         rooms[roomNumber-1].users.push(username);
         _sock.join(rooms[roomNumber-1].name);
         _sock.emit("player setup", username);
-        _sock.emit('player entered', rooms[roomNumber-1].users); // TODO: Idk why socket.in(room) doesnt send to the sender... had to put this line in several places. kinda bandaid fix
+        _sock.emit('player entered', rooms[roomNumber-1]); // TODO: Idk why socket.in(room) doesnt send to the sender... had to put this line in several places. kinda bandaid fix
         _sock.in(rooms[roomNumber-1].name).emit('player entered', rooms[roomNumber-1].users);
 
         // Start game button (or some other event) is clicked
@@ -178,7 +178,7 @@ function _exit(_sock, username, roomNumber)
         {
           rooms[roomNumber-1].users.splice(index, 1);
         }
-        _sock.in(rooms[roomNumber-1].name).emit('player exited', rooms[roomNumber-1].users);
+        _sock.in(rooms[roomNumber-1].name).emit('player exited', rooms[roomNumber-1]);
     }
 
     console.log(username + " has exited room" + roomNumber);

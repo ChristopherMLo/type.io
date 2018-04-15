@@ -23,19 +23,15 @@ function init()
     });
 
     // Whenever a player enters the room
-    socket.on('player entered', function(_players)
+    socket.on('player entered', function(_room)
     {
-        let str = _players;
-        str = str.toString();
-        $('#players').html(str);
+        setPlayerBoxes(_room);
     });
 
     // Whenver a player exits the room
-    socket.on('player exited', function(_players)
+    socket.on('player exited', function(_room)
     {
-        let str = _players;
-        str = str.toString();
-        $('#players').html(str);
+        setPlayerBoxes(_room);
     });
 
     // Setup for a player when they are created(ONLY for the player who just entered)
@@ -51,14 +47,7 @@ function init()
     {
 
         usernameIndex = _room.users.indexOf(username);
-        $('#player1').html(_room.users[0]);
-        $('#player2').html(_room.users[1]);
-        $('#player3').html(_room.users[2]);
-        $('#player4').html(_room.users[3]);
-        $('#player1').css('background-color', colors[0]);
-        $('#player2').css('background-color', colors[1]);
-        $('#player3').css('background-color', colors[2]);
-        $('#player4').css('background-color', colors[3]);
+        setPlayerBoxes(_room);
         $('#message').html("<br>");
         $('#typed').html("<br>");
         resetWord();
@@ -106,7 +95,7 @@ function init()
                                 msg + '</p></li>'));
         }
 
-        $('#chatBody').scrollTop($('#chatBody')[0].scrollHeight);    
+        $('#chatBody').scrollTop($('#chatBody')[0].scrollHeight);
     });
 
     socket.on('setup chat', function(history)
@@ -129,6 +118,21 @@ function init()
 
 }
 
+function setPlayerBoxes(_room)
+{
+    $('.player1').html(_room.users[0]);
+    $('.player2').html(_room.users[1]);
+    $('.player3').html(_room.users[2]);
+    $('.player4').html(_room.users[3]);
+    if (_room.users[0])
+        $('.player1').css('background-color', colors[0]);
+    if (_room.users[1])
+        $('.player2').css('background-color', colors[1]);
+    if (_room.users[2])
+        $('.player3').css('background-color', colors[2]);
+    if (_room.users[3])
+        $('.player4').css('background-color', colors[3]);
+}
 
 // Disable typing for punishment
 function disableTyping()

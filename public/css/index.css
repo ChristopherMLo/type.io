@@ -60,6 +60,12 @@ body
     padding: 10px;
 }
 
+#players
+{
+    background-color: #e6ac00;
+    border-radius: 2px;
+}
+
 #gameWindow
 {
     padding: 10px;
