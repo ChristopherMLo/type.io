@@ -44,6 +44,10 @@ var room4 = {
         timer: 0
 }
 var rooms = [room1, room2, room3, room4];
+var history = [];
+for (i = 0; i < 25; i++) {
+  history.push("<li>&nbsp;</li>");
+}
 
 // Anytime you add a function make sure to update this if you need the function in server.js
 module.exports = {
@@ -119,6 +123,25 @@ function _setup(io, _sock, username, roomNumber) {
                 console.log("wrong player");
             }
         });
+
+        // CHAT FUNCTIONS
+        _sock.on("chat message", function(msg, user)
+        {
+            _sock.emit('chat message', msg, user);
+            _sock.in(rooms[roomNumber-1].name).emit('chat message', msg, user);
+            console.log("recieved message" + msg);
+        });
+
+        _sock.on('add history', function (msg)
+        {
+            history.push(msg);
+            if (history.length > 25)
+            {
+                history.shift();
+            }
+        });
+
+        _sock.emit("setup chat", history);
 
         console.log(username + " has entered room" + roomNumber);
     }

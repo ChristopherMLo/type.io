@@ -90,6 +90,40 @@ function init()
        console.log("hi");
     });
 
+    // CHAT FUNCTIONS
+    socket.on('chat message', function(msg, _user)
+    {
+        if (_user == username)
+        {
+            $('#messages').append($('<li><p><b> ' + _user + ' : ' +
+                            msg + '</b></p></li>'));
+            socket.emit('add history', '<li><p>' +  _user + ' : ' +
+                            msg + '</p></li>')
+        }
+        else
+        {
+            $('#messages').append($('<li><p>' + _user + ' : ' +
+                                msg + '</p></li>'));
+        }
+
+        $('#chatBody').scrollTop($('#chatBody')[0].scrollHeight);    
+    });
+
+    socket.on('setup chat', function(history)
+    {
+        for(let line of history){
+            $('#messages').append(line);
+        }
+    });
+
+    $("#chatInput").on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            socket.emit('chat message', $('#chatInput').val(), username);
+            $('#chatInput').val('');
+            console.log('l');
+        }
+    });
+
     // Enter the room as the last thing
     socket.emit("enter room", $('#roomNumber').html());
 

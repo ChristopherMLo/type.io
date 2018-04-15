@@ -98,7 +98,7 @@ body
     padding:10px;
     font-family: 'Aclonica';
     font-size: 22px;
-
+    width: 220px;
 }
 
 /* CHAT STUFF */
@@ -115,6 +115,8 @@ body
 #chatBody
 {
     width: 100%;
+    overflow: auto;
+    height: 100%;
 }
 
 #chatInput
@@ -124,4 +126,17 @@ body
     width: 100%;
     bottom: 0;
     left: 0;
+}
+
+#messages
+{
+    font-size: 15px;
+    height: 100%;
+    word-wrap: break-word;
+    list-style-type: none;
+    bottom: 0;
+}
+#messages li
+{
+    padding: 5px 10px;
 }
