@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ../partials/head %>
+
+    <body>
+
+        <% include ../partials/nav %>
+
+            <div class="container" style="padding-top:200px;">
+                <div class="jumbotron">
+                    <h3>Login</h3>
+                    <hr>
+
+                    <% if(messages.length > 0) { %>
+                        <div class="alert alert-danger">
+                            <%= messages %>
+                        </div>
+                    <% } %>
+
+                    <form action="/login" method="POST">
+
+                        <div class="form-group">
+                            <label for="email">email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-lg btn-success"> Login </button>
+                    </form>
+
+                    <hr>
+                </div>
+            </div>
+    
+        <% include ../partials/footer %>
+        <% include ../partials/scripts %>
+    </body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ../partials/head %>
+
+
+<body>
+
+    <% include ../partials/nav %>
+
+    <div class="container" style="padding-top:200px;">
+        <div class="jumbotron text-center">
+            <h1>Profile</h1>
+
+            <h1>User Info</h1>
+            <p>User Email: <%= req.user.email%></p>
+            <p>User Username: <%= req.user.username%></p>
+
+            <a href="/game" class="btn btn-lg btn-success"> Start Game</a>
+        </div>
+
+    </div>
+
+    <% include ../partials/footer %>
+    <% include ../partials/scripts %>
+</body>
+
+</html>

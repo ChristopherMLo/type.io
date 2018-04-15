@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include ../partials/head %>
+
+
+<body>
+    <script src="../../public/js/client.js"></script>
+    <% include ../partials/nav %>
+
+    <div class="container" style="padding-top:200px;">
+        <div class="jumbotron text-center">
+            <h1>Game</h1>
+            <button onclick="connect('one')" class="btn btn-primary" >Enter Game Room 1</button>
+            <button onclick="connect('two')" class="btn btn-primary" >Enter Game Room 2</button>
+            <button onclick="connect('three')" class="btn btn-primary" >Enter Game Room 3</button>
+            <button onclick="connect('four')" class="btn btn-primary" >Enter Game Room 4</button>  
+        </div>
+    </div>
+
+    <% include ../partials/footer %>
+    <% include ../partials/scripts %>
+</body>
+
+</html>
