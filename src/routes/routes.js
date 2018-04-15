@@ -24,6 +24,22 @@ module.exports = (app, passport) => {
         res.render('pages/game.ejs', { req: req })
     })
 
+    app.get('/rooms/one', (req, res) => {
+        res.render('pages/one.ejs', { req: req})
+    })
+
+    app.get('/rooms/two', (req, res) => {
+        res.render('pages/two.ejs', { req: req})
+    })
+
+    app.get('/rooms/three', (req, res) => {
+        res.render('pages/three.ejs', { req: req})
+    })
+
+    app.get('/rooms/four', (req, res) => {
+        res.render('pages/four.ejs', { req: req})
+    })
+
     // API Routes
 
     app.get('/users', (req, res) => {
@@ -56,5 +72,3 @@ module.exports = (app, passport) => {
     })
 
 }
-
-
