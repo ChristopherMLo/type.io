@@ -32,7 +32,7 @@ body
 }
 #header
 {
-    height: 40px;
+    height: 45px;
     background-color: black;
     color: white;
     padding: 10px;
@@ -41,7 +41,7 @@ body
 
 #body
 {
-    height: calc(100% - 40px );
+    height: calc(100% - 45px );
     width: 100%;
 }
 
@@ -90,6 +90,13 @@ body
     background-color: #404040;
 }
 
+#message
+{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #404040;
+}
+
 .playerbox
 {
     border-radius: 10px;
@@ -99,6 +106,14 @@ body
     font-family: 'Aclonica';
     font-size: 22px;
     width: 220px;
+}
+#player
+{
+    color: black;
+    border-radius: 2px;
+    font-family: 'Aclonica';
+    font-size: 16px;
+    padding: 3px;
 }
 
 /* CHAT STUFF */

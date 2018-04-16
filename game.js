@@ -45,7 +45,7 @@ var room4 = {
 }
 var rooms = [room1, room2, room3, room4];
 var history = [];
-for (i = 0; i < 25; i++) {
+for (i = 0; i < 50; i++) {
   history.push("<li>&nbsp;</li>");
 }
 
@@ -69,13 +69,14 @@ function _setup(io, _sock, username, roomNumber) {
         rooms[roomNumber-1].users.push(username);
         _sock.join(rooms[roomNumber-1].name);
         _sock.emit("player setup", username);
-        _sock.emit('player entered', rooms[roomNumber-1].users); // TODO: Idk why socket.in(room) doesnt send to the sender... had to put this line in several places. kinda bandaid fix
-        _sock.in(rooms[roomNumber-1].name).emit('player entered', rooms[roomNumber-1].users);
+        _sock.emit('player entered', rooms[roomNumber-1]); // TODO: Idk why socket.in(room) doesnt send to the sender... had to put this line in several places. kinda bandaid fix
+        _sock.in(rooms[roomNumber-1].name).emit('player entered', rooms[roomNumber-1]);
 
         // Start game button (or some other event) is clicked
         // split the word and send the final users
         _sock.on("start game", function()
         {
+            rooms[roomNumber-1].timer = 0;
             splitWord(roomNumber);
             rooms[roomNumber-1].index = 0;
             _sock.emit('start game', rooms[roomNumber-1]);
@@ -87,6 +88,12 @@ function _setup(io, _sock, username, roomNumber) {
                  console.log('time used: ', rooms[roomNumber-1].timer);
             }
             , 1000);
+        });
+
+        _sock.on("restart", function()
+        {
+            _sock.emit('restart', rooms[roomNumber-1]);
+            _sock.in(rooms[roomNumber-1].name).emit('restart', rooms[roomNumber-1]);
         });
 
         // Whenever a key is typed from a client, then update the progress for clients
@@ -105,22 +112,18 @@ function _setup(io, _sock, username, roomNumber) {
                     {
                          clearInterval(cancelInterval);
                          _sock.emit("game over", rooms[roomNumber-1]);
-                         rooms[roomNumber-1].timer = 0;
-                         _sock.in(rooms[roomNumber-1].name).emit("game over");
+                         _sock.in(rooms[roomNumber-1].name).emit("game over", rooms[roomNumber-1]);
                     }
-                    console.log("Correct key : " + key)
 
                 }
                 else
                 {
                     _sock.emit("wrong key")
-                    console.log("Wrong key : " + key)
                 }
             }
             else
             {
                 _sock.emit("wrong player");
-                console.log("wrong player");
             }
         });
 
@@ -129,7 +132,6 @@ function _setup(io, _sock, username, roomNumber) {
         {
             _sock.emit('chat message', msg, user);
             _sock.in(rooms[roomNumber-1].name).emit('chat message', msg, user);
-            console.log("recieved message" + msg);
         });
 
         _sock.on('add history', function (msg)
@@ -164,7 +166,6 @@ function splitWord(roomNumber)
         let identifier = Math.floor(Math.random() * rooms[roomNumber-1].users.length)
         rooms[roomNumber-1].split.push(identifier);
     }
-    console.log(rooms[roomNumber-1].split.toString());
 }
 
 
@@ -178,7 +179,7 @@ function _exit(_sock, username, roomNumber)
         {
           rooms[roomNumber-1].users.splice(index, 1);
         }
-        _sock.in(rooms[roomNumber-1].name).emit('player exited', rooms[roomNumber-1].users);
+        _sock.in(rooms[roomNumber-1].name).emit('player exited', rooms[roomNumber-1]);
     }
 
     console.log(username + " has exited room" + roomNumber);

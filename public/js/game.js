@@ -19,30 +19,25 @@ function init()
     {
         $('#goal li:nth-child(' + (_room.index) + ')').css('text-decoration', 'none');
         $('#goal li:nth-child(' + (_room.index+1) + ')').css('text-decoration', 'underline');
-        document.getElementById('typed').innerHTML = _room.word.slice(0, _room.index);
     });
 
     // Whenever a player enters the room
-    socket.on('player entered', function(_players)
+    socket.on('player entered', function(_room)
     {
-        let str = _players;
-        str = str.toString();
-        $('#players').html(str);
+        setPlayerBoxes(_room);
     });
 
     // Whenver a player exits the room
-    socket.on('player exited', function(_players)
+    socket.on('player exited', function(_room)
     {
-        let str = _players;
-        str = str.toString();
-        $('#players').html(str);
+        setPlayerBoxes(_room);
     });
 
     // Setup for a player when they are created(ONLY for the player who just entered)
     socket.on('player setup', function(_username)
     {
         username = _username;
-        $('#player').html("You are player " + username);
+        $('#player').html(username);
     });
 
     // When server tells clients the game is starting. Unhide game div and other Setup
@@ -51,18 +46,13 @@ function init()
     {
 
         usernameIndex = _room.users.indexOf(username);
-        $('#player1').html(_room.users[0]);
-        $('#player2').html(_room.users[1]);
-        $('#player3').html(_room.users[2]);
-        $('#player4').html(_room.users[3]);
-        $('#player1').css('background-color', colors[0]);
-        $('#player2').css('background-color', colors[1]);
-        $('#player3').css('background-color', colors[2]);
-        $('#player4').css('background-color', colors[3]);
+        setPlayerBoxes(_room);
         $('#message').html("<br>");
         $('#typed').html("<br>");
         resetWord();
         setupWord(_room.word, _room.split);
+        document.getElementById("input").disabled = false;
+        $('#restartButton').hide();
         $('#preGameWindow').hide();
         $('#gameWindow').show();
     });
@@ -87,7 +77,14 @@ function init()
     {
        document.getElementById("message").innerHTML = "Game over!<br>Total time used: " + _room.timer + " seconds<br>Average letters per second: "+(_room.index)/_room.timer;
        document.getElementById("input").disabled = true;
-       console.log("hi");
+       $('#restartButton').show();
+    });
+
+    socket.on('restart', function(_room)
+    {
+        setPlayerBoxes(_room);
+        $('#gameWindow').hide();
+        $('#preGameWindow').show();
     });
 
     // CHAT FUNCTIONS
@@ -106,7 +103,7 @@ function init()
                                 msg + '</p></li>'));
         }
 
-        $('#chatBody').scrollTop($('#chatBody')[0].scrollHeight);    
+        $('#chatBody').scrollTop($('#chatBody')[0].scrollHeight);
     });
 
     socket.on('setup chat', function(history)
@@ -120,7 +117,6 @@ function init()
         if (e.keyCode == 13) {
             socket.emit('chat message', $('#chatInput').val(), username);
             $('#chatInput').val('');
-            console.log('l');
         }
     });
 
@@ -130,12 +126,44 @@ function init()
 }
 
 
+
+function setPlayerBoxes(_room)
+{
+    if (username == _room.users[0])
+    {
+        $('#player').css('background-color', colors[0]);
+    }
+    if (username == _room.users[1])
+    {
+        $('#player').css('background-color', colors[1]);
+    }
+    if (username == _room.users[2])
+    {
+        $('#player').css('background-color', colors[2]);
+    }
+    if (username == _room.users[3])
+    {
+        $('#player').css('background-color', colors[3]);
+    }
+    $('.player1').html(_room.users[0]);
+    $('.player2').html(_room.users[1]);
+    $('.player3').html(_room.users[2]);
+    $('.player4').html(_room.users[3]);
+    if (_room.users[0])
+        $('.player1').css('background-color', colors[0]);
+    if (_room.users[1])
+        $('.player2').css('background-color', colors[1]);
+    if (_room.users[2])
+        $('.player3').css('background-color', colors[2]);
+    if (_room.users[3])
+        $('.player4').css('background-color', colors[3]);
+}
+
 // Disable typing for punishment
 function disableTyping()
 {
     document.getElementById("input").disabled = false;
     document.getElementById("message").innerHTML = "";
-
 }
 
 // Setup the UI with the word in different colors
@@ -172,9 +200,16 @@ function keyTyped(event)
     {
         socket.emit("key typed", event.key, usernameIndex);
     }
+    $('#input').val('');
+
 }
 
 function startGame()
 {
     socket.emit("start game");
+}
+
+function restartGame()
+{
+    socket.emit("restart");
 }
