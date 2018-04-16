@@ -32,12 +32,14 @@ body
 }
 #header
 {
+
     height: 45px;
     background-color: black;
     color: white;
     padding: 10px;
     width:100%;
 }
+
 
 #body
 {
@@ -154,4 +156,78 @@ body
 #messages li
 {
     padding: 5px 10px;
+}
+
+@media only screen and (max-width: 550px) {
+    body
+    {
+      font: 10px Helvetica, Arial;
+    }
+
+    .panel
+    {
+        min-height:15px;
+    }
+    #header
+    {
+        font-size: 10px;
+        height: 20px;
+        padding: 0px;
+    }
+
+    #body
+    {
+        height: calc(100% - 20px );
+        width: 100%;
+    }
+
+
+    /* GAME STUFF */
+    #preGameWindow
+    {
+        padding: 5px;
+    }
+
+    #gameWindow
+    {
+        padding: 5px;
+    }
+
+    #goal li
+    {
+        font-size: 16px;
+        padding: 1px;
+        margin: 1px;
+        width: 14px;
+        border-radius: 1px;
+    }
+
+    #goal
+    {
+        padding: 3px;
+        border-radius: 3px;
+    }
+
+    #message
+    {
+        padding: 3px;
+        border-radius: 3px;
+    }
+
+    .playerbox
+    {
+        border-radius: 5px;
+        margin:5px;
+        padding:5px;
+        font-size: 11px;
+        width: 70px;
+    }
+    #player
+    {
+        color: black;
+        border-radius: 2px;
+        font-size: 8px;
+        padding: 2px;
+    }
+
 }

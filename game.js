@@ -25,7 +25,7 @@ var room2 = {
     name: 'room 2',
     word: "",
     min: 5,
-    max: 10,
+    max: 8,
     index: 0,
     split: [],
     timer: 0
@@ -34,8 +34,8 @@ var room3 = {
     users: [],
     name: 'room 3',
     word: "",
-    min: 10,
-    max: 20,
+    min: 9,
+    max: 15,
     index: 0,
     split: [],
     timer: 0
@@ -44,8 +44,8 @@ var room4 = {
     users: [],
     name: 'room 4',
     word: "",
-    min: 20,
-    max: 30,
+    min: 16,
+    max: 20,
     index: 0,
     split: [],
     timer: 0

@@ -13,11 +13,11 @@
     <body>
         <div id="body">
             <div id="header" class="row">
-                <div class="col-9">
+                <div class="col-8">
                     Room #<span id="roomNumber">1</span>
                 </div>
-                <div class="col-3">
-                    Hello, you are <span id="player">Guest</span>
+                <div class="col-4">
+                    You are <span id="player">Guest</span>
                 </div>
             </div>
             <div id="gameWrapper">
@@ -37,11 +37,19 @@
                                 <div class="player4 playerbox">EMPTY</div>
                             </div>
                         </div>
+                        <div class="row panel">
+                            <div class="col"><br></div>
+                        </div>
                         <div class="row justify-content-center">
-                            <div class="col-6">
+                            <div class="col">
                                 <button onclick="startGame()" class="btn btn-primary">Start Game</button>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row panel">
+                            <div class="col"><br></div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col">
                                 <button onclick="exitGame()" class="btn btn-primary">Back to Lobby</button>
                             </div>
                         </div>
@@ -67,16 +75,16 @@
                             <div class="col"><br></div>
                         </div>
                         <div class="row panel">
-                            <div class="col-md">
+                            <div class="col">
                                 <div class="player1 playerbox">EMPTY</div>
                             </div>
-                            <div class="col-md">
+                            <div class="col">
                                 <div class="player2 playerbox">EMPTY</div>
                             </div>
-                            <div class="col-md">
+                            <div class="col">
                                 <div class="player3 playerbox">EMPTY</div>
                             </div>
-                            <div class="col-md">
+                            <div class="col">
                                 <div class="player4 playerbox">EMPTY</div>
                             </div>
                         </div>
@@ -84,10 +92,15 @@
                             <div class="col"><br></div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-6">
+                            <div class="col">
                                 <button id= "restartButton" onclick="restartGame()" class="btn btn-primary">Play Again?</button>
                             </div>
-                            <div class="col-6">
+                        </div>
+                        <div class="row panel">
+                            <div class="col"><br></div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col">
                                 <button onclick="exitGame()" class="btn btn-primary">Back to Lobby</button>
                             </div>
                         </div>
