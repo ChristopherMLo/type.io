@@ -38,7 +38,12 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <button onclick="startGame()" class="btn btn-primary">Start Game</button>
+                            <div class="col-6">
+                                <button onclick="startGame()" class="btn btn-primary">Start Game</button>
+                            </div>
+                            <div class="col-6">
+                                <button onclick="exitGame()" class="btn btn-primary">Back to Lobby</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +84,12 @@
                             <div class="col"><br></div>
                         </div>
                         <div class="row justify-content-center">
-                            <button id= "restartButton" onclick="restartGame()" class="btn btn-primary">Play Again?</button>
+                            <div class="col-6">
+                                <button id= "restartButton" onclick="restartGame()" class="btn btn-primary">Play Again?</button>
+                            </div>
+                            <div class="col-6">
+                                <button onclick="exitGame()" class="btn btn-primary">Back to Lobby</button>
+                            </div>
                         </div>
                     </div>
                 </div>
