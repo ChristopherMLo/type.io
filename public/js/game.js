@@ -52,6 +52,7 @@ function init()
         document.getElementById("input").disabled = false;
         $('#restartButton').hide();
         $('#preGameWindow').hide();
+        $('#ggWindow').hide();
         $('#gameWindow').show();
     });
 
@@ -76,6 +77,8 @@ function init()
        document.getElementById("message").innerHTML = "Game over!<br>Total time used: " + _room.timer + " seconds<br>Average letters per second: "+(_room.index)/_room.timer;
        document.getElementById("input").disabled = true;
        $('#restartButton').show();
+       resetWord();
+       setupWord('Game Over!', _room.split)
     });
 
     socket.on('restart', function(_room)
