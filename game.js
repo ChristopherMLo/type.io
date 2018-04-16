@@ -85,6 +85,7 @@ function _setup(io, _sock, username, roomNumber) {
             // records seconds since game started
             cancelInterval = setInterval(function(){
                  rooms[roomNumber-1].timer++;
+                 console.log('time used: ', rooms[roomNumber-1].timer);
             }
             , 1000);
         });
