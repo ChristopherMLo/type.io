@@ -29,7 +29,6 @@ function init()
     // Whenver a player exits the room
     socket.on('player exited', function(_room)
     {
-        console.log("EXIT");
         setPlayerBoxes(_room);
     });
 
