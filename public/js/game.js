@@ -74,7 +74,7 @@ function init()
 
     socket.on('game over', function(_room)
     {
-       document.getElementById("message").innerHTML = "Game over!<br>Total time used: " + _room.timer + " seconds<br>Average letters per second: "+(_room.index)/_room.timer;
+       document.getElementById("message").innerHTML = "<br>Total time used: " + _room.timer + " seconds<br>Average letters per second: "+(_room.index)/_room.timer;
        document.getElementById("input").disabled = true;
        $('#restartButton').show();
        resetWord();
