@@ -10,7 +10,8 @@
 // index = current index of word progress
 // split = assigned key to word, ex[1, 2, 4, 3, 2, 1, 1], see splitWord()
 var room1 = {
-    users: [],
+    users: [null, null, null, null],
+    numUsers: 0,
     name: 'room 1',
     word: "",
     nospace: "",
@@ -21,7 +22,8 @@ var room1 = {
     timer: 0
 }
 var room2 = {
-    users: [],
+    users: [null, null, null, null],
+    numUsers: 0,
     name: 'room 2',
     word: "",
     min: 5,
@@ -31,7 +33,8 @@ var room2 = {
     timer: 0
 }
 var room3 = {
-    users: [],
+    users: [null, null, null, null],
+    numUsers: 0,
     name: 'room 3',
     word: "",
     min: 9,
@@ -41,7 +44,8 @@ var room3 = {
     timer: 0
 }
 var room4 = {
-    users: [],
+    users: [null, null, null, null],
+    numUsers: 0,
     name: 'room 4',
     word: "",
     min: 16,
@@ -68,12 +72,11 @@ module.exports = {
 function _setup(io, _sock, username, roomNumber) {
      var cancelInterval;
     // set the room
-    if (rooms[roomNumber-1].users.length >= 4){
+    if (addUser(roomNumber, username) == -1){
         console.log("Too Many Users");
     }
     else {
         // Setup the user and socket in the room
-        rooms[roomNumber-1].users.push(username);
         _sock.join(rooms[roomNumber-1].name);
         _sock.emit("player setup", username);
         _sock.emit('player entered', rooms[roomNumber-1]);
@@ -170,10 +173,30 @@ function splitWord(roomNumber)
     rooms[roomNumber-1].split = []
     for (i = 0; i < rooms[roomNumber-1].word.length; i++)
     {
+        while (true)
+        {
+            let identifier = Math.floor(Math.random() * rooms[roomNumber-1].word.length);
+            if (rooms[roomNumber-1].users[identifier] != null)
+            {
+                rooms[roomNumber-1].split.push(identifier);
+                break;
+            }
+        }
 
-        let identifier = Math.floor(Math.random() * rooms[roomNumber-1].users.length)
-        rooms[roomNumber-1].split.push(identifier);
     }
+}
+
+function addUser(roomNumber, _user)
+{
+    for (i = 0; i < 4; i++)
+    {
+        if (rooms[roomNumber-1].users[i] == null)
+        {
+            rooms[roomNumber-1].users[i] = _user;
+            return i;
+        }
+    }
+    return -1;
 }
 
 
@@ -185,10 +208,11 @@ function _exit(_sock, username, roomNumber)
         let index = rooms[roomNumber-1].users.indexOf(username);
         if (index > -1)
         {
-          rooms[roomNumber-1].users.splice(index, 1);
+          rooms[roomNumber-1].users[index] = null;
+          _sock.in(rooms[roomNumber-1].name).emit('player exited', rooms[roomNumber-1]);
         }
-        _sock.in(rooms[roomNumber-1].name).emit('player exited', rooms[roomNumber-1]);
     }
 
-    console.log(username + " has exited room" + roomNumber);
+
+    console.log(username + " has exited room " + roomNumber);
 }

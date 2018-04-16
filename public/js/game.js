@@ -29,6 +29,7 @@ function init()
     // Whenver a player exits the room
     socket.on('player exited', function(_room)
     {
+        console.log("EXIT");
         setPlayerBoxes(_room);
     });
 
@@ -143,18 +144,50 @@ function setPlayerBoxes(_room)
     {
         $('#player').css('background-color', colors[3]);
     }
-    $('.player1').html(_room.users[0]);
-    $('.player2').html(_room.users[1]);
-    $('.player3').html(_room.users[2]);
-    $('.player4').html(_room.users[3]);
     if (_room.users[0])
+    {
         $('.player1').css('background-color', colors[0]);
+        $('.player1').html(_room.users[0]);
+    }
+    else
+    {
+        $('.player1').css('background-color', 'white');
+        $('.player1').html("EMPTY");
+    }
+
+
     if (_room.users[1])
+    {
         $('.player2').css('background-color', colors[1]);
+        $('.player2').html(_room.users[1]);
+    }
+    else
+    {
+        $('.player2').css('background-color', 'white');
+        $('.player2').html("EMPTY");
+    }
+
     if (_room.users[2])
+    {
         $('.player3').css('background-color', colors[2]);
+        $('.player3').html(_room.users[2]);
+    }
+    else
+    {
+        $('.player3').css('background-color', 'white');
+        $('.player3').html("EMPTY");
+    }
     if (_room.users[3])
+    {
         $('.player4').css('background-color', colors[3]);
+        $('.player4').html(_room.users[3]);
+    }
+    else
+    {
+        $('.player4').css('background-color', 'white');
+        $('.player4').html("EMPTY");
+    }
+
 }
 
 // Disable typing for punishment
