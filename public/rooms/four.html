@@ -13,28 +13,21 @@
     <body>
         <div id="body">
             <div id="header">
-                Room #<span id="roomNumber">1</span>
+                Room #<span id="roomNumber">4</span>
                 Hello, <span id="player">Guest</span>
             </div>
             <div id="gameWrapper">
                 <div id="preGameWindow">
                     <div class="container">
-                        <div class="row panel">
-                            <div class="col-md">
-                                <div class="player1 playerbox">EMPTY</div>
-                            </div>
-                            <div class="col-md">
-                                <div class="player2 playerbox">EMPTY</div>
-                            </div>
-                            <div class="col-md">
-                                <div class="player3 playerbox">EMPTY</div>
-                            </div>
-                            <div class="col-md">
-                                <div class="player4 playerbox">EMPTY</div>
-                            </div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">PLAYERS:</div>
+                            <div id="players" class="col-sm-8"></div>
                         </div>
                         <div class="row justify-content-center">
-                            <button onclick="startGame()" class="btn btn-primary">Start Game</button>
+                            <div id="spectators" class="col"><br></div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <button onclick="startGame()">Start Game with these players</button>
                         </div>
                     </div>
                 </div>
@@ -56,26 +49,24 @@
                         </div>
                         <div class="row panel">
                             <div class="col-md">
-                                <div class="player1 playerbox">EMPTY</div>
+                                <div id="player1" class="playerbox">EMPTY</div>
                             </div>
                             <div class="col-md">
-                                <div class="player2 playerbox">EMPTY</div>
+                                <div id="player2" class="playerbox">EMPTY</div>
                             </div>
                             <div class="col-md">
-                                <div class="player3 playerbox">EMPTY</div>
+                                <div id="player3" class="playerbox">EMPTY</div>
                             </div>
                             <div class="col-md">
-                                <div class="player4 playerbox">EMPTY</div>
+                                <div id="player4" class="playerbox">EMPTY</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="chatWrapper">
-                <div id="chatBody">
-                    <ul id="messages"></ul>
-                </div>
-                <input id="chatInput" autocomplete="off"/>
+                <div id="chatBody">Chat stuff here</div>
+                <input id="chatInput">
             </div>
         </div>
     </body>
