@@ -12,8 +12,10 @@
 var room1 = {
     users: [],
     name: 'room 1',
-    word: "EASY TEST",
+    word: "",
     nospace: "",
+    min: 2,
+    max: 3,
     index: 0,
     split: [],
     timer: 0
@@ -21,33 +23,40 @@ var room1 = {
 var room2 = {
     users: [],
     name: 'room 2',
-    word: "AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA AAA",
-    nospace: "",
+    word: "",
+    min: 5,
+    max: 10,
     index: 0,
     split: [],
-        timer: 0
+    timer: 0
 }
 var room3 = {
     users: [],
     name: 'room 3',
-    word: "hElLoWoRlD",
+    word: "",
+    min: 10,
+    max: 20,
     index: 0,
     split: [],
-        timer: 0
+    timer: 0
 }
 var room4 = {
     users: [],
     name: 'room 4',
-    word: "1234567890",
+    word: "",
+    min: 20,
+    max: 30,
     index: 0,
     split: [],
-        timer: 0
+    timer: 0
 }
 var rooms = [room1, room2, room3, room4];
 var history = [];
 for (i = 0; i < 50; i++) {
   history.push("<li>&nbsp;</li>");
 }
+
+var randomWords = require('random-words');
 
 // Anytime you add a function make sure to update this if you need the function in server.js
 module.exports = {
@@ -76,6 +85,7 @@ function _setup(io, _sock, username, roomNumber) {
         // split the word and send the final users
         _sock.on("start game", function()
         {
+            rooms[roomNumber-1].word = randomWords({ min: rooms[roomNumber-1].min, max: rooms[roomNumber-1].max }).join(' ');
             rooms[roomNumber-1].timer = 0;
             splitWord(roomNumber);
             rooms[roomNumber-1].index = 0;
