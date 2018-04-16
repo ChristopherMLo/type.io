@@ -213,3 +213,8 @@ function restartGame()
 {
     socket.emit("restart");
 }
+
+function exitGame()
+{
+    window.open("../index.html", "_self");
+}

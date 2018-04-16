@@ -14,5 +14,5 @@ function init()
 function connect(roomNumber)
 {
     // TODO: better of of creating multple rooms? other tha one.html two.html etc.
-    window.open("/rooms/" + roomNumber + ".html");
+    window.open("/rooms/" + roomNumber + ".html", "_self");
 }
