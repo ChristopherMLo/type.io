@@ -3,7 +3,6 @@
  *
  */
 
-// Dont modify any _room variables, do that in the game.js file for the server
 var socket;
 var username;
 var usernameIndex;
@@ -41,7 +40,6 @@ function init()
     });
 
     // When server tells clients the game is starting. Unhide game div and other Setup
-    // TODO: countdown timer
     socket.on('start game', function(_room)
     {
 

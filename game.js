@@ -64,12 +64,10 @@ module.exports = {
     exit: _exit,
 };
 
-// Called whenever a socket enters the room. Currently the socket that starts on
-// index.html is not the same socket
+// Called whenever a socket enters the room.
 function _setup(io, _sock, username, roomNumber) {
      var cancelInterval;
     // set the room
-    // TODO: Might be a more elegant solution than using rooms[roomNumber-1]... but it works
     if (rooms[roomNumber-1].users.length >= 4){
         console.log("Too Many Users");
     }
@@ -78,7 +76,7 @@ function _setup(io, _sock, username, roomNumber) {
         rooms[roomNumber-1].users.push(username);
         _sock.join(rooms[roomNumber-1].name);
         _sock.emit("player setup", username);
-        _sock.emit('player entered', rooms[roomNumber-1]); // TODO: Idk why socket.in(room) doesnt send to the sender... had to put this line in several places. kinda bandaid fix
+        _sock.emit('player entered', rooms[roomNumber-1]);
         _sock.in(rooms[roomNumber-1].name).emit('player entered', rooms[roomNumber-1]);
 
         // Start game button (or some other event) is clicked
