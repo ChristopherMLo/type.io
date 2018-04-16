@@ -19,7 +19,9 @@ var room1 = {
     max: 3,
     index: 0,
     split: [],
-    timer: 0
+    timer: 0,
+    history: [],
+
 }
 var room2 = {
     users: [null, null, null, null],
@@ -30,7 +32,9 @@ var room2 = {
     max: 8,
     index: 0,
     split: [],
-    timer: 0
+    timer: 0,
+    history: [],
+
 }
 var room3 = {
     users: [null, null, null, null],
@@ -41,7 +45,8 @@ var room3 = {
     max: 15,
     index: 0,
     split: [],
-    timer: 0
+    timer: 0,
+    history: [],
 }
 var room4 = {
     users: [null, null, null, null],
@@ -52,12 +57,16 @@ var room4 = {
     max: 20,
     index: 0,
     split: [],
-    timer: 0
+    timer: 0,
+    history: [],
+
 }
 var rooms = [room1, room2, room3, room4];
-var history = [];
 for (i = 0; i < 50; i++) {
-  history.push("<li>&nbsp;</li>");
+  rooms[0].history.push("<li>&nbsp;</li>");
+  rooms[1].history.push("<li>&nbsp;</li>");
+  rooms[2].history.push("<li>&nbsp;</li>");
+  rooms[3].history.push("<li>&nbsp;</li>");
 }
 
 var randomWords = require('random-words');
@@ -147,14 +156,14 @@ function _setup(io, _sock, username, roomNumber) {
 
         _sock.on('add history', function (msg)
         {
-            history.push(msg);
-            if (history.length > 25)
+            rooms[roomNumber-1].history.push(msg);
+            if (rooms[roomNumber-1].history.length > 50)
             {
-                history.shift();
+                rooms[roomNumber-1].history.shift();
             }
         });
 
-        _sock.emit("setup chat", history);
+        _sock.emit("setup chat", rooms[roomNumber-1].history);
 
         console.log(username + " has entered room" + roomNumber);
     }

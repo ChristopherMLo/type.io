@@ -112,6 +112,8 @@ function init()
         for(let line of history){
             $('#messages').append(line);
         }
+        $('#chatBody').scrollTop($('#chatBody')[0].scrollHeight);
+
     });
 
     $("#chatInput").on('keyup', function (e) {
